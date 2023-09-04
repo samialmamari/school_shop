@@ -22,6 +22,7 @@ class SchoolShopController extends Controller
         // cheack if the student is buy on same day
         // dd($id);
         $student = student::where('id', $id)->first();
+        // dd($student);
         $date = date('Y-m-d');
         if(!$student){
             // dd($id);
