@@ -17,23 +17,23 @@ class SchoolShopController extends Controller
         return Inertia::render('Welcome');
     }
     //
-    public function buy($parcode): RedirectResponse
+    public function buy($id): RedirectResponse
     {
         // cheack if the student is buy on same day
-        // dd($parcode);
-        $student = student::where('parcode', $parcode)->first();
+        // dd($id);
+        $student = student::where('id', $id)->first();
         $date = date('Y-m-d');
         if(!$student){
-            // dd($parcode);
+            // dd($id);
             dd('لا يوجد طالب ');
         }
-        $is_student_buy_on_same_day = student_attend::where('parcode', $student->id)->where('date', $date)->first();
+        $is_student_buy_on_same_day = student_attend::where('id', $student->id)->where('date', $date)->first();
         if($is_student_buy_on_same_day){
             dd('الطالب لدية تسجيل سابق خلال هذا اليوم');
         }
         //insert student on table student_attend
         $student_attend = new student_attend();
-        $student_attend->parcode = $parcode;
+        $student_attend->student_id = $id;
         $student_attend->date = $date;
         $student_attend->save();
 
